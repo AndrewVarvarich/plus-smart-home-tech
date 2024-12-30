@@ -10,9 +10,7 @@ import ru.yandex.practicum.types.SensorEventType;
 public class ClimateSensorEvent extends SensorEvent {
 
     private Integer temperatureC;
-
     private Integer humidity;
-
     private Integer co2Level;
 
     @Override

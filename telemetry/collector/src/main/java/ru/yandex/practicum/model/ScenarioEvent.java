@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import ru.yandex.practicum.event.scenario.ScenarioAddedEvent;
 import ru.yandex.practicum.event.scenario.ScenarioRemovedEvent;
 import ru.yandex.practicum.types.HubEventType;
@@ -25,10 +24,9 @@ import java.time.Instant;
 @Getter
 @Setter
 public abstract class ScenarioEvent {
+
     private String hubId;
-
     private Instant timestamp = Instant.now();
-
     private String name;
 
     public abstract HubEventType getType();

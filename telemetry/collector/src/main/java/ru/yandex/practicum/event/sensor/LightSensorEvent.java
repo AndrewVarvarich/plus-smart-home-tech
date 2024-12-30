@@ -10,7 +10,6 @@ import ru.yandex.practicum.types.SensorEventType;
 public class LightSensorEvent extends SensorEvent {
 
     private Integer linkQuality;
-
     private Integer luminosity;
 
     @Override

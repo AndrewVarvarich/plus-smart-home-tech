@@ -7,10 +7,8 @@ import org.apache.avro.specific.SpecificDatumWriter;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.common.serialization.Serializer;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 
 public class SerializerAvro implements Serializer<SpecificRecordBase> {
 

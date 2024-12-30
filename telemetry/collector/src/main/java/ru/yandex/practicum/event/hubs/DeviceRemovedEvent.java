@@ -1,6 +1,5 @@
 package ru.yandex.practicum.event.hubs;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import ru.yandex.practicum.model.HubEvent;

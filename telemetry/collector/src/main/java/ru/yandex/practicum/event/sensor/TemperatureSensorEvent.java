@@ -10,7 +10,6 @@ import ru.yandex.practicum.types.SensorEventType;
 public class TemperatureSensorEvent extends SensorEvent {
 
     private Integer temperatureC;
-
     private Integer temperatureF;
 
     @Override
