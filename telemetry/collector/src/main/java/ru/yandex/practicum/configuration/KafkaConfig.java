@@ -21,7 +21,6 @@ public class KafkaConfig {
     @Value("${kafka.value.serialize.class}")
     private String valueSerializeClass;
 
-
     @Bean
     KafkaProducer<String, SpecificRecordBase> producer() {
         Properties property = new Properties();
