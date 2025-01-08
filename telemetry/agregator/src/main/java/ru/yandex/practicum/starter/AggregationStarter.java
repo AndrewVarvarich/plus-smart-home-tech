@@ -70,13 +70,14 @@ public class AggregationStarter {
 
         Consumer<String, SensorEventAvro> consumer = new KafkaConsumer<>(consumerConfig);
 
+        consumer.subscribe(List.of(sensorsTopic));
+
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             log.info("Added a shutdown hook");
             consumer.wakeup();
         }));
 
         try {
-            consumer.subscribe(List.of(sensorsTopic));
             while (true) {
                 ConsumerRecords<String, SensorEventAvro> records = consumer.poll(Duration.ofMillis(1000));
                 for (ConsumerRecord<String, SensorEventAvro> record : records) {
