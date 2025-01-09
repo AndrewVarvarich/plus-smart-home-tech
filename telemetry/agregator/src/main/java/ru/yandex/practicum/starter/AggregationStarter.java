@@ -46,6 +46,10 @@ public class AggregationStarter {
 
     private final SnapshotService service;
 
+    private static final String OFFSET_RESET_EARLIEST = "earliest";
+
+    private static final String AUTO_COMMIT_DISABLED = "false";
+
     Map<String, SensorsSnapshotAvro> snapshots = new HashMap<>();
 
     public void start() {
@@ -62,11 +66,11 @@ public class AggregationStarter {
         Properties consumerConfig = new Properties();
 
         consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, UUID.randomUUID().toString());
-        consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, OFFSET_RESET_EARLIEST);
         consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, keyDeserializerClass);
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, valueDeserializerClass);
-        consumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        consumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, AUTO_COMMIT_DISABLED);
 
         Consumer<String, SensorEventAvro> consumer = new KafkaConsumer<>(consumerConfig);
 

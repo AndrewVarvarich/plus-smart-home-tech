@@ -13,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "scenarios")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"hubId", "name"})
 public class Scenario {
 
     @Id

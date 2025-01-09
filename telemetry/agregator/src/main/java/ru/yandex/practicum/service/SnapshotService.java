@@ -1,5 +1,6 @@
 package ru.yandex.practicum.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
 import ru.yandex.practicum.kafka.telemetry.event.SensorStateAvro;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
+@Slf4j
 public class SnapshotService {
 
     private final Map<String, SensorsSnapshotAvro> snapshots = new ConcurrentHashMap<>();
@@ -35,6 +37,6 @@ public class SnapshotService {
 
     public void handleSnapshot(SensorsSnapshotAvro snapshot) {
         snapshots.put(snapshot.getHubId(), snapshot);
-        System.out.println("Saved snapshot: " + snapshot.getHubId());
+        log.info("Saved snapshot: " + snapshot.getHubId());
     }
 }

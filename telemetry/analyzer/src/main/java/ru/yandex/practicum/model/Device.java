@@ -12,7 +12,7 @@ import ru.yandex.practicum.kafka.telemetry.event.DeviceTypeAvro;
 @Entity
 @Table(name = "devices")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"hubId", "type"})
 public class Device {
 
     @Id
