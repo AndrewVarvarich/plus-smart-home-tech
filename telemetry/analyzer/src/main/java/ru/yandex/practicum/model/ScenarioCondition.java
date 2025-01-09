@@ -15,7 +15,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "scenario_conditions")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"scenarioId", "deviceId", "conditionType", "operation"})
 public class ScenarioCondition {
 
     @Id

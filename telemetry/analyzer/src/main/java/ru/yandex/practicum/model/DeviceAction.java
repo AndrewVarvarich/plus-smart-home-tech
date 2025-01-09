@@ -14,7 +14,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "device_actions")
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"scenarioId", "deviceId", "type"})
 public class DeviceAction {
 
     @Id
