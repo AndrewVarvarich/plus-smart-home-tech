@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS scenario_conditions
   condition_type VARCHAR,
   operation      VARCHAR,
   value_type     VARCHAR,
-  value          VARCHAR
+  "value"        VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS device_actions
@@ -35,5 +35,5 @@ CREATE TABLE IF NOT EXISTS device_actions
   scenario_id UUID,
   device_id   VARCHAR,
   type        VARCHAR,
-  value       INT
-)
+  "value"     INT
+);

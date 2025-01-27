@@ -1,10 +1,6 @@
 package ru.yandex.practicum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.yandex.practicum.kafka.telemetry.event.ActionTypeAvro;
@@ -26,5 +22,6 @@ public class DeviceAction {
     @Enumerated(EnumType.STRING)
     private ActionTypeAvro type;
 
+    @Column(name = "\"value\"")
     private Integer value;
 }
