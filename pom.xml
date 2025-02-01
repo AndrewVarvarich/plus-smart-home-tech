@@ -9,15 +9,18 @@
         <version>3.3.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
     <groupId>ru.yandex.practicum</groupId>
     <artifactId>smart-home-tech</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
     <modules>
         <module>telemetry</module>
         <module>infra</module>
         <module>commerce</module>
     </modules>
+
     <properties>
         <java.version>21</java.version>
         <avro.version>1.11.3</avro.version>
@@ -27,6 +30,7 @@
         <protobuf.version>3.23.4</protobuf.version>
         <grpc.version>1.63.0</grpc.version>
         <spring-cloud-dependecies.version>2023.0.3</spring-cloud-dependecies.version>
+        <mapstruct.version>1.6.0</mapstruct.version>
 
         <!--       Plugins       -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
@@ -81,7 +85,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
