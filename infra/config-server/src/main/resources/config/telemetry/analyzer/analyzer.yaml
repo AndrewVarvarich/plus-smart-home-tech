@@ -1,13 +1,19 @@
 spring:
+  application:
+    name: analyzer
   datasource:
+    url: jdbc:postgresql://localhost:5432/smart
+    username: smart
+    password: smart
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/analyzer
-    username: analyzer
-    password: analyzer
   jpa:
-    hibernate.ddl-auto: none
-    open-in-view: false
-  sql.init.mode: always
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect # Явно указываем диалект
 kafka:
   hub-event-listener:
     topics:
@@ -35,7 +41,7 @@ kafka:
 grpc:
   client:
     router:
-      address: 'static://127.0.0.1:59090'
+      address: 'discovery:///hub-router'
       enable-keep-alive: true
       keep-alive-without-calls: true
       negotiation-type: plaintext
