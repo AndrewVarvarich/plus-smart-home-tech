@@ -42,7 +42,6 @@ public class ProductServiceImpl implements ProductService {
         }
         final Product savedProduct = productRepository.save(product);
         log.info("Added new product to warehouse: productId = {}", savedProduct.getProductId());
-        log.debug("Added product = {}", product);
     }
 
     @Transactional
@@ -59,11 +58,8 @@ public class ProductServiceImpl implements ProductService {
         );
         productRepository.saveAll(products.values());
         log.info("Booked products for shopping cart: shoppingCartId = {}", shoppingCart.getShoppingCartId());
-        log.debug("Shopping cart = {}", shoppingCart);
-        log.debug("Updated products in warehouse = {}", products.values());
         return bookedProducts;
     }
-
     @Transactional
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Override
@@ -76,7 +72,6 @@ public class ProductServiceImpl implements ProductService {
         product = productRepository.save(product);
         log.info("Increased quantity of product in warehouse: productId = {}, new quantity = {}",
                 product.getProductId(), product.getTotalQuantity());
-        log.debug("Updated product in warehouse = {}", product);
     }
 
     private Map<UUID, Product> getProductsByIds(final Set<UUID> productIds) {

@@ -33,24 +33,25 @@ public class ShoppingCartController {
 
     @GetMapping
     public ShoppingCartDto getShoppingCartByUsername(@RequestParam final String username) {
-        log.info("Received request for shopping cart by username: username = {}", username);
+        log.info("Received request for shopping cart by username: {}", username);
+
         final ShoppingCart shoppingCart = shoppingCartService.getShoppingCartByUsername(username);
         final ShoppingCartDto dto = shoppingCartMapper.mapToDto(shoppingCart);
-        log.info("Responded with requested shopping cart: shoppingCartId = {}, username = {}", dto.getShoppingCartId(),
-                username);
-        log.debug("Requested shopping cart = {}", dto);
+
+        log.debug("Mapped shopping cart response: {}", dto);
         return dto;
     }
 
     @PutMapping
-    public ShoppingCartDto addProductsToShoppingCart(@RequestParam final String username,
+    public ShoppingCartDto addProductsToShoppingCart(
+            @RequestParam final String username,
             @RequestBody final Map<UUID, Long> products) {
-        log.info("Received request to put products to shopping cart: username = {}", username);
+        log.info("Adding products to shopping cart: {}", username);
+
         final ShoppingCart shoppingCart = shoppingCartService.addProductsToShoppingCart(username, products);
         final ShoppingCartDto dto = shoppingCartMapper.mapToDto(shoppingCart);
-        log.info("Responded with shopping cart after products put: shoppingCartId = {}, username = {}",
-                dto.getShoppingCartId(), username);
-        log.debug("Shopping cart after products put = {}", dto);
+
+        log.debug("Updated shopping cart after adding products: {}", dto);
         return dto;
     }
 
@@ -62,37 +63,40 @@ public class ShoppingCartController {
     }
 
     @PostMapping("/remove")
-    public ShoppingCartDto deleteProductsFromShoppingCart(@RequestParam final String username,
+    public ShoppingCartDto deleteProductsFromShoppingCart(
+            @RequestParam final String username,
             @RequestBody final Set<UUID> products) {
-        log.info("Received request to delete products from shopping cart: username = {}", username);
+        log.info("Removing products from shopping cart: {}", username);
+
         final ShoppingCart shoppingCart = shoppingCartService.deleteProductsFromShoppingCart(username, products);
         final ShoppingCartDto dto = shoppingCartMapper.mapToDto(shoppingCart);
-        log.info("Responded with shopping cart after products deleted: shoppingCartId = {}, username = {}",
-                dto.getShoppingCartId(), username);
-        log.debug("Shopping cart after products deleted = {}", dto);
+
+        log.debug("Updated shopping cart after removal: {}", dto);
         return dto;
     }
 
     @PostMapping("/change-quantity")
-    public ShoppingCartDto changeProductQuantity(@RequestParam final String username,
+    public ShoppingCartDto changeProductQuantity(
+            @RequestParam final String username,
             @RequestBody @Valid final ChangeProductQuantityRequest request) {
-        log.info("Received request to change product quantity in shopping cart: username = {}, productId = {}",
-                username, request.getProductId());
-        log.debug("Change product quantity request = {}", request);
+        log.info("Changing product quantity: {} | product: {}", username, request.getProductId());
+        log.debug("Quantity change details: {}", request);
+
         final ShoppingCart shoppingCart = shoppingCartService.changeProductQuantity(username, request);
         final ShoppingCartDto dto = shoppingCartMapper.mapToDto(shoppingCart);
-        log.info("Responded with updated shopping cart: shoppingCartId = {}, username = {}, productId = {}",
-                dto.getShoppingCartId(), username, request.getProductId());
-        log.debug("Shopping cart after product quantity changed = {}", dto);
+
+        log.debug("Updated shopping cart after quantity change: {}", dto);
         return dto;
     }
 
     @PostMapping("/booking")
     public BookedProductsDto bookProductsInWarehouse(@RequestParam final String username) {
-        log.info("Received request to book products in warehouse: username = {}", username);
+        log.info("Booking products for: {}", username);
+
         final BookedProductsDto dto = shoppingCartService.bookProductsInWarehouse(username);
-        log.info("Responded with booking parameters: username = {}, deliveryVolume = {}, deliveryWeight = {}, fragile "
-                + "= {}", username, dto.getDeliveryVolume(), dto.getDeliveryWeight(), dto.getFragile());
+
+        log.debug("Booking details - volume: {}, weight: {}, fragile: {}",
+                dto.getDeliveryVolume(), dto.getDeliveryWeight(), dto.getFragile());
         return dto;
     }
 }

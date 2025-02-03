@@ -28,7 +28,6 @@ public class ProductServiceImpl implements ProductService {
         final Product savedProduct = repository.save(product);
         log.info("Added new product: productId = {}, productName = {}", savedProduct.getProductId(),
                 savedProduct.getProductName());
-        log.debug("Product added = {}", savedProduct);
         return savedProduct;
     }
 
@@ -50,21 +49,18 @@ public class ProductServiceImpl implements ProductService {
             throw new ProductNotFoundException("Product not found: productId = " + product.getProductId());
         }
         final Product savedProduct = repository.save(product);
-        log.info("Updated product: productId = {}, productName = {}", savedProduct.getProductId(),
-                savedProduct.getProductName());
-        log.debug("Product updated = {}", savedProduct);
+        log.info("Updated product: productId = {}, productName = {}",
+                savedProduct.getProductId(), savedProduct.getProductName());
         return savedProduct;
     }
 
     @Override
-    public boolean setProductQuantity(final SetProductQuantityStateRequest request) {
+    public void setProductQuantity(final SetProductQuantityStateRequest request) {
         final Product product = getProductById(request.getProductId());
         product.setQuantityState(request.getQuantityState());
         final Product savedProduct = repository.save(product);
         log.info("Updated product quantity: productId = {}, productName = {}, quantityState = {}",
                 savedProduct.getProductId(), savedProduct.getProductName(), savedProduct.getQuantityState());
-        log.debug("Product with new quantity = {}", savedProduct);
-        return true;
     }
 
     @Override
@@ -74,7 +70,6 @@ public class ProductServiceImpl implements ProductService {
         final Product savedProduct = repository.save(product);
         log.info("Deleted product: productId = {}, productName = {}, productState = {}",
                 savedProduct.getProductId(), savedProduct.getProductName(), savedProduct.getProductState());
-        log.debug("Product with new state = {}", savedProduct);
         return true;
     }
 }

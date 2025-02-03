@@ -44,8 +44,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         requireShoppingCartNotDeactivated(shoppingCart);
         shoppingCart.getProducts().putAll(products);
         shoppingCart = repository.save(shoppingCart);
-        log.info("Put products to shopping cart: shoppingCartId = {}", shoppingCart.getShoppingCartId());
-        log.debug("Shopping cart after products added = {}", shoppingCart);
+        log.debug("Products added to cart ID: {}", shoppingCart.getShoppingCartId());
         return shoppingCart;
     }
 
@@ -54,8 +53,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = getShoppingCartByUsername(username);
         shoppingCart.setShoppingCartState(ShoppingCartState.DEACTIVATED);
         shoppingCart = repository.save(shoppingCart);
-        log.info("Deactivated shopping cart: shoppingCartId = {}", shoppingCart.getShoppingCartId());
-        log.debug("Deactivated shopping cart = {}", shoppingCart);
+        log.debug("Cart deactivated: {}", shoppingCart.getShoppingCartId());
     }
 
     @Override
@@ -75,8 +73,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         requireShoppingCartNotDeactivated(shoppingCart);
         products.forEach(shoppingCart.getProducts()::remove);
         final ShoppingCart savedShoppingCart = repository.save(shoppingCart);
-        log.info("Deleted products from shopping cart: shoppingCartId = {}", savedShoppingCart.getShoppingCartId());
-        log.debug("Shopping cart after products deleted = {}", savedShoppingCart);
+        log.debug("Products removed from cart ID: {}", savedShoppingCart.getShoppingCartId());
         return savedShoppingCart;
     }
 
@@ -90,9 +87,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         requireShoppingCartNotDeactivated(shoppingCart);
         shoppingCart.getProducts().put(request.getProductId(), request.getNewQuantity());
         shoppingCart = repository.save(shoppingCart);
-        log.info("Changed product quantity in shopping cart: shoppingCartId = {}, productId = {}, new quantity = {}",
-                shoppingCart.getShoppingCartId(), request.getProductId(), request.getNewQuantity());
-        log.debug("Shopping cart after product quantity change = {}", shoppingCart);
+        log.debug("Quantity updated for product {} in cart {}",
+                request.getProductId(), shoppingCart.getShoppingCartId());
         return shoppingCart;
     }
 
@@ -107,10 +103,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         try {
             final BookedProductsDto bookedProductsDto = warehouseService.bookProducts(shoppingCartDto);
-            log.info("Booked products in warehouse: shoppingCartId = {}, deliveryVolume = {}, deliveryWeight = {}, "
-                            + "fragile = {}", shoppingCart.getShoppingCartId(), bookedProductsDto.getDeliveryVolume(),
-                    bookedProductsDto.getDeliveryWeight(), bookedProductsDto.getFragile());
-            log.debug("Booked shopping cart = {}", shoppingCart);
+            log.debug("Products booked from cart {}", shoppingCart.getShoppingCartId());
             return bookedProductsDto;
         } catch (Exception e) {
             throw new BookingNotPossibleException("Cannot book products in warehouse now");
@@ -123,9 +116,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCart.setUsername(username);
         shoppingCart.setShoppingCartState(ShoppingCartState.ACTIVE);
         shoppingCart = repository.save(shoppingCart);
-        log.info("Created new shopping cart: shoppingCartId = {}, username = {}", shoppingCart.getShoppingCartId(),
-                shoppingCart.getUsername());
-        log.debug("New shopping cart = {}", shoppingCart);
+        log.debug("New cart created for user {}", username);
         return shoppingCart;
     }
 

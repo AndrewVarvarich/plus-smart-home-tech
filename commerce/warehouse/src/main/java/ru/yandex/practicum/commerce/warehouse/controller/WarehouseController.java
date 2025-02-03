@@ -32,7 +32,6 @@ public class WarehouseController {
     @PutMapping
     public void addNewProduct(@RequestBody @Valid final NewProductInWarehouseRequest request) {
         log.info("Received request to add new product: productId = {}", request.getProductId());
-        log.debug("Add new product request = {}", request);
         final Product product = productMapper.mapToEntity(request);
         productService.addNewProduct(product);
         log.info("Responded with 200 OK to add new product request: productId = {}", request.getProductId());
@@ -42,11 +41,9 @@ public class WarehouseController {
     public BookedProductsDto bookProducts(@RequestBody @Valid final ShoppingCartDto shoppingCart) {
         log.info("Received request to book products from shopping cart: shoppingCartId = {}",
                 shoppingCart.getShoppingCartId());
-        log.debug("Shopping cart = {}", shoppingCart);
         final BookedProductsDto dto = productService.bookProductsInWarehouse(shoppingCart);
         log.info("Responded with delivery parameters for booked shopping cart: shoppingCartId = {}",
                 shoppingCart.getShoppingCartId());
-        log.debug("Delivery parameters = {}", dto);
         return dto;
     }
 
@@ -64,7 +61,6 @@ public class WarehouseController {
         log.info("Received request for warehouse address");
         final AddressDto address = addressService.getAddress();
         log.info("Responded with warehouse address");
-        log.debug("Warehouse address = {}", address);
         return address;
     }
 }
