@@ -88,7 +88,7 @@ public class ProductController {
     @PostMapping("/removeProductFromStore")
     public void deleteProduct(@RequestBody final UUID productId) {
         log.info("Received request to delete product: productId = {}", productId);
-        final boolean result = productService.deleteProductById(productId);
-        log.info("Responded to product delete request: productId = {}, result = {}", productId, result);
+        productService.deleteProductById(productId);
+        log.info("Responded to product delete request: productId = {}", productId);
     }
 }

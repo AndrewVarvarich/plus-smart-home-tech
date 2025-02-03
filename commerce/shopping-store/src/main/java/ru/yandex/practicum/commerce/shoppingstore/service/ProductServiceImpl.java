@@ -64,12 +64,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean deleteProductById(final UUID productId) {
+    public void deleteProductById(final UUID productId) {
         final Product product = getProductById(productId);
         product.setProductState(ProductState.DEACTIVATE);
         final Product savedProduct = repository.save(product);
         log.info("Deleted product: productId = {}, productName = {}, productState = {}",
                 savedProduct.getProductId(), savedProduct.getProductName(), savedProduct.getProductState());
-        return true;
     }
 }
