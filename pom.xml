@@ -31,7 +31,6 @@
         <grpc.version>1.63.0</grpc.version>
         <spring-cloud-dependecies.version>2023.0.3</spring-cloud-dependecies.version>
         <mapstruct.version>1.6.0</mapstruct.version>
-
         <!--       Plugins       -->
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <avro-maven-plugin.version>${avro.version}</avro-maven-plugin.version>
