@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: analyzer
+  datasource:
+    url: jdbc:postgresql://localhost:5432/smart
+    username: smart
+    password: smart
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect # Явно указываем диалект
+kafka:
+  hub-event-listener:
+    topics:
+      - telemetry.hubs.v1
+    poll-timeout: 15000
+    strategy: at-least-once
+    commit-batch-size: 10
+    properties:
+      bootstrap.servers: localhost:9092
+      group.id: telemetry.hub-analyzers
+      auto.offset.reset: earliest
+      enable.auto.commit: false
+      fetch.min.bytes: 500
+      fetch.max.wait.ms: 30000
+  snapshot-listener:
+    topics:
+      - telemetry.snapshots.v1
+    poll-timeout: 10000
+    strategy: at-most-once
+    properties:
+      bootstrap.servers: localhost:9092
+      group.id: telemetry.snapshot-analyzers
+      auto.offset.reset: earliest
+      enable.auto.commit: false
+grpc:
+  client:
+    router:
+      address: 'discovery:///hub-router'
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+      negotiation-type: plaintext
+logging.level:
+  org.apache.kafka: WARN

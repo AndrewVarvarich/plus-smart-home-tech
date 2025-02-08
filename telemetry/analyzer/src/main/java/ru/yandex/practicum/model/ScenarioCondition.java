@@ -1,10 +1,6 @@
 package ru.yandex.practicum.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.yandex.practicum.kafka.telemetry.event.ConditionOperationAvro;
@@ -31,5 +27,6 @@ public class ScenarioCondition {
     private ConditionOperationAvro operation;
 
     private String valueType;
+    @Column(name = "\"value\"")
     private String value;
 }
